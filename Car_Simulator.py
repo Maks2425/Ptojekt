@@ -3,6 +3,7 @@ import random
 
 pygame.init()
 
+
 blue = (102, 102, 255)
 white = (255, 255, 255)
 orange = (0, 162, 255)
@@ -10,14 +11,29 @@ rgb = (30, 105, 185)
 rgb2 = (0, 255, 179)
 
 
+# Отримуємо розміри екрану
+# info = pygame.display.Info()
+# WIDTH, HEIGHT = info.current_w, info.current_h  # Динамічні розміри екрану
 
-WIDTH, HEIGHT = 1920, 1280
+# screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)  # Повноекранний режим
+# pygame.display.set_caption("Car Simulator")
+
+# # Перевіримо розміри екрану
+# print(f"Screen size: {WIDTH}x{HEIGHT}")
+
+
+# Отримуємо розміри екрану
+info = pygame.display.Info()
+WIDTH, HEIGHT = info.current_w - 50, info.current_h - 100  # Динамічні розміри екрану
+# WIDTH, HEIGHT = 1920, 1280
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
+# screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("Car Simulator")
 
 
-image = pygame.image.load("play.png")
-image_rect = image.get_rect(center=(900, 600))
+playImg = pygame.image.load("play.png")
+# розміщаємо зображення в центрі екрану
+playImg_rect = playImg.get_rect(center=(WIDTH / 2, HEIGHT / 2)) 
 
 barruer = pygame.image.load("barruer.png")
 barruer_rect = barruer.get_rect(center=(0, 400))
@@ -43,8 +59,8 @@ barruercopyright_rect = barruercopy_right.get_rect(center=(2000, 900))
 barruercopy_right2 = pygame.image.load("barruercopy.png")
 barruercopyright2_rect = barruercopy_right2.get_rect(center=(2000, 400))
 
-image1 = pygame.image.load("quit.png")
-image_rect1 = image1.get_rect(center=(900, 700))
+quit_img = pygame.image.load("quit.png")
+quit_img_rect = quit_img.get_rect(center=(WIDTH / 2, playImg_rect.bottom + 50))
 
 Levels = pygame.image.load("Levels.png")
 Levels_rect = Levels.get_rect(center=(900, 200))
@@ -78,11 +94,14 @@ won_rect = Won.get_rect(center=(900,200))
 Lobby = pygame.image.load("LOBBY.png")
 Lobby_rect = Lobby.get_rect(center=(900,400))
 
+is_benzin_on_right = True
+
 money = 0
 car_speed = 1
-Menu3 = False
+SecondLevelScreen = False
 Menu = True
-Menu2 = False  
+FirstLevelScreen = False  
+FirstLevelCompletedScreen = False
 barruer_box = False
 point = 0
 MenuMoney = False
@@ -93,11 +112,11 @@ running = True
 while running:
     screen.fill(orange)
     text1 = f1.render(f'points {point}', 1, (0, 0, 0))
-    text2 = f1.render(f'Money {money}', 1, (0, 0, 0))
+    text2 = f1.render(f'Money {money}', 0, (0, 0, 0))
     if Menu:
-        screen.blit(image, image_rect)
-        screen.blit(image1, image_rect1)
-    elif Menu2: 
+        screen.blit(playImg, playImg_rect)
+        screen.blit(quit_img, quit_img_rect)
+    elif FirstLevelScreen: 
         screen.fill(rgb)
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
@@ -110,7 +129,7 @@ while running:
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (400, 400))
-    elif Menu3:
+    elif SecondLevelScreen:
         screen.fill(rgb2)
         screen.blit(car,car_rect)
         screen.blit(barruer,barruer_rect)
@@ -123,6 +142,11 @@ while running:
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (400, 400))
+    elif FirstLevelCompletedScreen:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
 
     else:
         screen.blit(image2, image_rect2)
@@ -135,20 +159,23 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_ESCAPE:  # Вихід з гри при натисканні ESC
+                running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if Menu:
-                if image_rect.collidepoint(event.pos):
+                if playImg_rect.collidepoint(event.pos):
                     Menu = False  
-                elif image_rect1.collidepoint(event.pos):
+                elif quit_img_rect.collidepoint(event.pos):
                     running = False  
             else:
                 if image_rect2.collidepoint(event.pos):
                     running = False 
                 if image_rect11.collidepoint(event.pos): 
-                    Menu2 = True  
+                    FirstLevelScreen = True  
                     Menu = False  
                 if image_rect22.collidepoint(event.pos): 
-                    Menu3 = True  
+                    SecondLevelScreen = True  
                     Menu = False
                     
 
@@ -160,8 +187,9 @@ while running:
                     running = False
 
                 if Lobby_rect.collidepoint(event.pos): 
-                    Menu2 = False
-                    Menu3 = False
+                    FirstLevelScreen = False
+                    SecondLevelScreen = False
+                    FirstLevelCompletedScreen = False
                     Menu = False
                     MenuMoney = False
 
@@ -182,20 +210,31 @@ while running:
     
     if car_rect.colliderect(benzin_rect):
         point += 1
-        benzin_rect = benzin.get_rect(center=(random.randint(100, WIDTH - 100), random.randint(100, HEIGHT - 100)))
         
 
-    if point == 5 and Menu2 == True:
-        screen.fill(orange)
-        screen.blit(quit2,quit2_rect)
-        screen.blit(Lobby,Lobby_rect)
-        screen.blit(Won,won_rect)
+        if is_benzin_on_right:
+            # змінюємо позицію бензину на ліву сторону
+            benzin_rect = benzin.get_rect(center=(random.randint(100, int(WIDTH / 2) - 100), random.randint(100, HEIGHT - 100)))
+            is_benzin_on_right = False
+        else:
+            # змінюємо позицію бензину на праву сторону
+            benzin_rect = benzin.get_rect(center=(random.randint(int(WIDTH / 2), WIDTH - 100), random.randint(100, HEIGHT - 100)))
+            is_benzin_on_right = True
+
+
+    if point == 5 and FirstLevelScreen == True:
+        print(f"збільшили гроші на 1")
+        print(f"гроші: {money}")
         money += 1
-        
-    if Menu == False and Menu2 == False and Menu3 == False:
+        print(f"гроші збільшилися на 1: {money}")
+        FirstLevelScreen = False
+        FirstLevelCompletedScreen = True
+
+
+    if Menu == False and FirstLevelScreen == False and SecondLevelScreen == False:
         point = 0
 
-    if point == 10 and Menu3 == True:
+    if point == 10 and SecondLevelScreen == True:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
@@ -205,7 +244,7 @@ while running:
     
 
 
-    if Menu2 or Menu3:
+    if FirstLevelScreen or SecondLevelScreen:
         if  keys[pygame.K_a]:  
             car_rect.x -= car_speed
         if  keys[pygame.K_d]:  
