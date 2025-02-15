@@ -39,10 +39,10 @@ barruer = pygame.image.load("barruer.png")
 barruer_rect = barruer.get_rect(center=(0, 400))
 
 barruerupp = pygame.image.load("uppbarruer.png")
-barruerupp_rect = barruerupp.get_rect(center=(300, 100))
+barruerupp_rect = barruerupp.get_rect(center=(300, 0))
 
 barruerupp2 = pygame.image.load("uppbarruer2.png")
-barruerupp2_rect = barruerupp2.get_rect(center=(1390, 100))
+barruerupp2_rect = barruerupp2.get_rect(center=(1390, 0))
 
 barruerdown = pygame.image.load("barruerdown.png")
 barruerdown_rect = barruerdown.get_rect(center=(300, 1200))
@@ -51,10 +51,10 @@ barruerdown2 = pygame.image.load("barruerdown2.png")
 barruerdown2_rect = barruerdown2.get_rect(center=(1300, 1200))
 
 barruercopy = pygame.image.load("barruercopy.png")
-barruercopy_rect = barruercopy.get_rect(center=(0, 900))
+barruercopy_rect = barruercopy.get_rect(center=(0, 100))
 
 barruercopy_right = pygame.image.load("barruercopy.png")
-barruercopyright_rect = barruercopy_right.get_rect(center=(2000, 900))
+barruercopyright_rect = barruercopy_right.get_rect(center=(0, 900))
 
 barruercopy_right2 = pygame.image.load("barruercopy.png")
 barruercopyright2_rect = barruercopy_right2.get_rect(center=(2000, 400))
@@ -103,6 +103,7 @@ SecondLevelScreen = False
 Menu = True
 FirstLevelScreen = False  
 FirstLevelCompletedScreen = False
+SecondLevelCompletedScreen = False
 barruer_box = False
 point = 0
 MenuMoney = False
@@ -144,6 +145,13 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (400, 400))
     elif FirstLevelCompletedScreen:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
+
+
+    elif SecondLevelCompletedScreen:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
@@ -193,6 +201,7 @@ while running:
                     FirstLevelCompletedScreen = False
                     Menu = False
                     MenuMoney = False
+                    SecondLevelCompletedScreen = False
 
     if MenuMoney == True:
         screen.fill(orange)
@@ -224,10 +233,7 @@ while running:
 
 
     if point == 5 and FirstLevelScreen == True:
-        print(f"збільшили гроші на 1")
-        print(f"гроші: {money}")
-        money += 1
-        print(f"гроші збільшилися на 1: {money}")
+        money += 5
         FirstLevelScreen = False
         FirstLevelCompletedScreen = True
 
@@ -236,11 +242,9 @@ while running:
         point = 0
 
     if point == 10 and SecondLevelScreen == True:
-        screen.fill(orange)
-        screen.blit(quit2,quit2_rect)
-        screen.blit(Lobby,Lobby_rect)
-        screen.blit(Won,won_rect)
-        money += 1
+        SecondLevelCompletedScreen = True
+        SecondLevelScreen = False
+        money += 10
         
     
 
