@@ -63,28 +63,43 @@ quit_img = pygame.image.load("quit.png")
 quit_img_rect = quit_img.get_rect(center=(WIDTH / 2, playImg_rect.bottom + 50))
 
 Levels = pygame.image.load("Levels.png")
-Levels_rect = Levels.get_rect(center=(900, 200))
+Levels_rect = Levels.get_rect(center=(350, 130))
 
-image2 = pygame.image.load("off.png")
-image_rect2 = image2.get_rect(center=(50, 130))
+off = pygame.image.load("off.png")
+off = pygame.transform.smoothscale(off, (80, 111))
+off_rect = off.get_rect(center=(50, 130))
 
 benzin = pygame.image.load("benzin.png")
+benzin = pygame.transform.smoothscale(benzin, (69, 111))
 benzin_rect = benzin.get_rect(center=(900, 630))
 
 
-image11 = pygame.image.load("1.png")
-image_rect11 = image11.get_rect(center=(100, 400))
+lvl1 = pygame.image.load("1.png")
+lvl1 = pygame.transform.smoothscale(lvl1, (69, 111))
+lvl1_rect = lvl1.get_rect(center=(100, 300))
 
+lvl3 = pygame.image.load("3.png")
+lvl3 = pygame.transform.smoothscale(lvl3, (69, 111))
+lvl3_rect = lvl3.get_rect(center=(300, 300))
 
-image22 = pygame.image.load("2.png")
-image_rect22 = image22.get_rect(center=(200, 400))
+lvl4 = pygame.image.load("4.png")
+lvl4 = pygame.transform.smoothscale(lvl4, (69, 111))
+lvl4_rect = lvl4.get_rect(center=(400, 300))
+
+lvl5 = pygame.image.load("5.png")
+lvl5 = pygame.transform.smoothscale(lvl5, (69, 111))
+lvl5_rect = lvl5.get_rect(center=(500, 300))
+
+lvl2 = pygame.image.load("2.png")
+lvl2 = pygame.transform.smoothscale(lvl2, (69, 111))
+lvl2_rect = lvl2.get_rect(center=(200, 300))
 
 car = pygame.image.load("car2.png")
-car = pygame.transform.smoothscale(car, (150, 70))  # Зменшення з антиаліасингом
+car = pygame.transform.smoothscale(car, (150, 70))  
 car_rect = car.get_rect(center=(500,500))
 
 ShowMoney = pygame.image.load("ShowMoney.png")
-ShowMoney_rect = ShowMoney.get_rect(center=(1500,200))
+ShowMoney_rect = ShowMoney.get_rect(center=(1500,130))
 
 quit2 = pygame.image.load("Quite2.png")
 quit2_rect = quit2.get_rect(center=(900,600))
@@ -96,7 +111,8 @@ Lobby = pygame.image.load("LOBBY.png")
 Lobby_rect = Lobby.get_rect(center=(900,400))
 
 is_benzin_on_right = True
-
+ThirdLevelScreen = False
+ThirdLevelComletedScreen = False
 money = 0
 car_speed = 1
 SecondLevelScreen = False
@@ -108,7 +124,7 @@ barruer_box = False
 point = 0
 MenuMoney = False
 f1 = pygame.font.Font(None, 36)
-
+Car_Flipp = False
 
 running = True
 while running:
@@ -158,9 +174,12 @@ while running:
         screen.blit(Won,won_rect)
 
     else:
-        screen.blit(image2, image_rect2)
-        screen.blit(image11, image_rect11)
-        screen.blit(image22, image_rect22)
+        screen.blit(off, off_rect)
+        screen.blit(lvl1, lvl1_rect)
+        screen.blit(lvl2, lvl2_rect)
+        screen.blit(lvl3, lvl3_rect)
+        screen.blit(lvl4, lvl4_rect)
+        screen.blit(lvl5, lvl5_rect)
         screen.blit(Levels, Levels_rect)
         screen.blit(ShowMoney, ShowMoney_rect)
 
@@ -178,12 +197,12 @@ while running:
                 elif quit_img_rect.collidepoint(event.pos):
                     running = False  
             else:
-                if image_rect2.collidepoint(event.pos):
+                if off_rect.collidepoint(event.pos):
                     running = False 
-                if image_rect11.collidepoint(event.pos): 
+                if lvl1_rect.collidepoint(event.pos): 
                     FirstLevelScreen = True  
                     Menu = False  
-                if image_rect22.collidepoint(event.pos): 
+                if lvl2_rect.collidepoint(event.pos): 
                     SecondLevelScreen = True  
                     Menu = False
                     
@@ -223,11 +242,9 @@ while running:
         
 
         if is_benzin_on_right:
-            # змінюємо позицію бензину на ліву сторону
             benzin_rect = benzin.get_rect(center=(random.randint(100, int(WIDTH / 2) - 100), random.randint(100, HEIGHT - 100)))
             is_benzin_on_right = False
         else:
-            # змінюємо позицію бензину на праву сторону
             benzin_rect = benzin.get_rect(center=(random.randint(int(WIDTH / 2), WIDTH - 100), random.randint(100, HEIGHT - 100)))
             is_benzin_on_right = True
 
@@ -250,11 +267,15 @@ while running:
 
 
     if FirstLevelScreen or SecondLevelScreen:
-        if  keys[pygame.K_a]:  
-            # car = pygame.transform.flip(car, True, False)
+        if  keys[pygame.K_a]:
+            if Car_Flipp == False:  
+                Car_Flipp = True
+                car = pygame.transform.flip(car, True, False)
             car_rect.x -= car_speed
-        if  keys[pygame.K_d]:  
-            # car = pygame.transform.flip(car, False, False)
+        if  keys[pygame.K_d]:
+            if Car_Flipp == True:  
+                Car_Flipp = False
+                car = pygame.transform.flip(car, True, False)
             car_rect.x += car_speed
         if  keys[pygame.K_w]:  
             car_rect.y -= car_speed
