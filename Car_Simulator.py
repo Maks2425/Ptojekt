@@ -26,8 +26,8 @@ rgb2 = (0, 255, 179)
 info = pygame.display.Info()
 WIDTH, HEIGHT = info.current_w - 50, info.current_h - 100  # Динамічні розміри екрану
 # WIDTH, HEIGHT = 1920, 1280
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-# screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+#screen = pygame.display.set_mode((WIDTH, HEIGHT))
+screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("Car Simulator")
 
 
