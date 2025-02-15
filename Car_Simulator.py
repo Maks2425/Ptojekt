@@ -9,7 +9,7 @@ white = (255, 255, 255)
 orange = (0, 162, 255)
 rgb = (30, 105, 185)
 rgb2 = (0, 255, 179)
-
+rgb3 = (30, 225, 79)
 
 # Отримуємо розміри екрану
 # info = pygame.display.Info()
@@ -32,7 +32,6 @@ pygame.display.set_caption("Car Simulator")
 
 
 playImg = pygame.image.load("play.png")
-# розміщаємо зображення в центрі екрану
 playImg_rect = playImg.get_rect(center=(WIDTH / 2, HEIGHT / 2)) 
 
 barruer = pygame.image.load("barruer.png")
@@ -111,6 +110,10 @@ Lobby = pygame.image.load("LOBBY.png")
 Lobby_rect = Lobby.get_rect(center=(900,400))
 
 is_benzin_on_right = True
+FiveftLevelScreen = False
+FiveftLevelComletedScreen = False
+FourdLevelScreen = False
+FourdLevelComletedScreen = False
 ThirdLevelScreen = False
 ThirdLevelComletedScreen = False
 money = 0
@@ -130,7 +133,7 @@ running = True
 while running:
     screen.fill(orange)
     text1 = f1.render(f'points {point}', 1, (0, 0, 0))
-    text2 = f1.render(f'Money {money}', 0, (0, 0, 0))
+    text2 = f1.render(f'Money {money}', 1, (0, 0, 0))
     if Menu:
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
@@ -147,6 +150,22 @@ while running:
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (400, 400))
+    elif ThirdLevelScreen: 
+        screen.fill(rgb3)
+        screen.blit(car, car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (400, 400))
+
+
+
     elif SecondLevelScreen:
         screen.fill(rgb2)
         screen.blit(car,car_rect)
@@ -206,6 +225,17 @@ while running:
                     SecondLevelScreen = True  
                     Menu = False
                     
+                if lvl3_rect.collidepoint(event.pos): 
+                    ThirdLevelScreen = True  
+                    Menu = False
+
+                if lvl4_rect.collidepoint(event.pos): 
+                    FourdLevelScreen = True  
+                    Menu = False 
+
+                if lvl5_rect.collidepoint(event.pos): 
+                    FiveftLevelScreen = True  
+                    Menu = False      
 
                 if ShowMoney_rect.collidepoint(event.pos): 
                     MenuMoney = True  
@@ -266,7 +296,7 @@ while running:
     
 
 
-    if FirstLevelScreen or SecondLevelScreen:
+    if FirstLevelScreen or SecondLevelScreen or ThirdLevelScreen:
         if  keys[pygame.K_a]:
             if Car_Flipp == False:  
                 Car_Flipp = True
