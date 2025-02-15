@@ -79,7 +79,8 @@ image_rect11 = image11.get_rect(center=(100, 400))
 image22 = pygame.image.load("2.png")
 image_rect22 = image22.get_rect(center=(200, 400))
 
-car = pygame.image.load("car.png")
+car = pygame.image.load("car2.png")
+car = pygame.transform.smoothscale(car, (150, 70))  # Зменшення з антиаліасингом
 car_rect = car.get_rect(center=(500,500))
 
 ShowMoney = pygame.image.load("ShowMoney.png")
@@ -246,8 +247,10 @@ while running:
 
     if FirstLevelScreen or SecondLevelScreen:
         if  keys[pygame.K_a]:  
+            # car = pygame.transform.flip(car, True, False)
             car_rect.x -= car_speed
         if  keys[pygame.K_d]:  
+            # car = pygame.transform.flip(car, False, False)
             car_rect.x += car_speed
         if  keys[pygame.K_w]:  
             car_rect.y -= car_speed
