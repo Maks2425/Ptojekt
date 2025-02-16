@@ -30,6 +30,10 @@ WIDTH, HEIGHT = info.current_w - 50, info.current_h - 100  # Динамічні 
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("Car Simulator")
 
+menu_bg = pygame.image.load("assets/menu_bg.webp") 
+menu_bg = pygame.transform.scale(menu_bg, (WIDTH+50, HEIGHT+100))
+
+
 
 playImg = pygame.image.load("assets/play.png")
 playImg_rect = playImg.get_rect(center=(WIDTH / 2, HEIGHT / 2)) 
@@ -61,7 +65,7 @@ barruercopyright2_rect = barruercopy_right2.get_rect(center=(2000, 400))
 quit_img = pygame.image.load("assets/quit.png")
 quit_img_rect = quit_img.get_rect(center=(WIDTH / 2, playImg_rect.bottom + 50))
 
-Levels = pygame.image.load("Levels.png")
+Levels = pygame.image.load("assets/Levels.png")
 Levels_rect = Levels.get_rect(center=(350, 130))
 
 off = pygame.image.load("assets/off.png")
@@ -135,8 +139,10 @@ while running:
     text1 = f1.render(f'Points: {point}', True, (0, 0, 0))
     #print(f"points{point}")
     if Menu:
+        screen.blit(menu_bg, (0, 0))
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
+        
     elif FirstLevelScreen: 
         screen.fill(rgb)
         screen.blit(car, car_rect)
