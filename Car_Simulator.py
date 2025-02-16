@@ -143,10 +143,13 @@ MenuMoney = False
 f1 = pygame.font.Font(None, 36)
 Car_Flipp = False
 
+Gas_Left = 1000
+
 running = True
 while running:
     screen.fill(orange)
     text1 = f1.render(f'Points: {point}', True, (0, 0, 0))
+    Gas_Left_Text = f1.render(f'Gas Left: {Gas_Left}', True, (0, 0, 0))
     #print(f"points{point}")
     if Menu:
         screen.blit(menu_bg, (0, 0))
@@ -165,7 +168,8 @@ while running:
         screen.blit(barruerdown,barruerdown_rect)
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
-        screen.blit(text1, (400, 400))
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
     elif ThirdLevelScreen: 
         screen.fill(rgb3)
         screen.blit(car, car_rect)
@@ -318,6 +322,7 @@ while running:
     
     if car_rect.colliderect(benzin_rect):
         point += 1
+        Gas_Left += 1000
         print(f'point{point}')
         #print(f"COLLISION DETECTED! Point updated: {point}")
     #else:
@@ -355,16 +360,23 @@ while running:
                 Car_Flipp = True
                 car = pygame.transform.flip(car, True, False)
             car_rect.x -= car_speed
+            Gas_Left -= 1
         if  keys[pygame.K_d]:
             if Car_Flipp == True:  
                 Car_Flipp = False
                 car = pygame.transform.flip(car, True, False)
             car_rect.x += car_speed
+            Gas_Left -= 1
         if  keys[pygame.K_w]:  
             car_rect.y -= car_speed
+            Gas_Left -= 1
         if  keys[pygame.K_s]:  
             car_rect.y += car_speed
+            Gas_Left -= 1
 
+    if Gas_Left <= 0:
+        Gas_Left = 0
+        car_speed = 0
 
 
     text2 = f1.render(f'Money {money}', 1, (0, 0, 0))
