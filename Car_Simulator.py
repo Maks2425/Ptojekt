@@ -30,10 +30,6 @@ WIDTH, HEIGHT = info.current_w - 50, info.current_h - 100  # Динамічні 
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("Car Simulator")
 
-menu_bg = pygame.image.load("assets/menu_bg.webp") 
-menu_bg = pygame.transform.scale(menu_bg, (WIDTH+50, HEIGHT+100))
-
-
 
 playImg = pygame.image.load("assets/play.png")
 playImg_rect = playImg.get_rect(center=(WIDTH / 2, HEIGHT / 2)) 
@@ -80,6 +76,12 @@ benzin_rect = benzin.get_rect(center=(900, 630))
 lvl1 = pygame.image.load("assets/1.png")
 lvl1 = pygame.transform.smoothscale(lvl1, (69, 111))
 lvl1_rect = lvl1.get_rect(center=(100, 300))
+
+
+Shop_button = pygame.image.load("assets/shop.png")
+Shop_button = pygame.transform.smoothscale(Shop_button, (370, 105))
+ShopButton_rect = Shop_button.get_rect(center=(1000, 130))
+
 
 lvl3 = pygame.image.load("assets/3.png")
 lvl3 = pygame.transform.smoothscale(lvl3, (69, 111))
@@ -139,10 +141,8 @@ while running:
     text1 = f1.render(f'Points: {point}', True, (0, 0, 0))
     #print(f"points{point}")
     if Menu:
-        screen.blit(menu_bg, (0, 0))
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
-        
     elif FirstLevelScreen: 
         screen.fill(rgb)
         screen.blit(car, car_rect)
@@ -239,7 +239,7 @@ while running:
         screen.blit(lvl5, lvl5_rect)
         screen.blit(Levels, Levels_rect)
         screen.blit(ShowMoney, ShowMoney_rect)
-
+        screen.blit(Shop_button, ShopButton_rect)
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -327,7 +327,7 @@ while running:
         FirstLevelCompletedScreen = True
 
 
-    if Menu == False and FirstLevelScreen == False and SecondLevelScreen == False or ThirdLevelScreen == False or FourdLevelScreen == False or FiveftLevelScreen == False:
+    if Menu == False and FirstLevelScreen == False and SecondLevelScreen == False and ThirdLevelScreen == False and FourdLevelScreen == False and FiveftLevelScreen == False:
         point = 0
 
     if point == 10 and SecondLevelScreen == True:
