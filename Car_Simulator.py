@@ -82,6 +82,10 @@ menu_bg = pygame.image.load("assets/menu_bg.webp")
 menu_bg = pygame.transform.scale(menu_bg, (WIDTH+50, HEIGHT+100))
 
 
+level1_bg = pygame.image.load("assets/level1_bg.webp")
+level1_bg = pygame.transform.scale(level1_bg, (WIDTH+50, HEIGHT+100))
+
+
 Shop_button = pygame.image.load("assets/shop.png")
 Shop_button = pygame.transform.smoothscale(Shop_button, (370, 105))
 ShopButton_rect = Shop_button.get_rect(center=(1000, 130))
@@ -150,6 +154,7 @@ while running:
         screen.blit(quit_img, quit_img_rect)
     elif FirstLevelScreen: 
         screen.fill(rgb)
+        screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
