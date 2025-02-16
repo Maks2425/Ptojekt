@@ -31,82 +31,82 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("Car Simulator")
 
 
-playImg = pygame.image.load("play.png")
+playImg = pygame.image.load("assets/play.png")
 playImg_rect = playImg.get_rect(center=(WIDTH / 2, HEIGHT / 2)) 
 
-barruer = pygame.image.load("barruer.png")
+barruer = pygame.image.load("assets/barruer.png")
 barruer_rect = barruer.get_rect(center=(0, 400))
 
-barruerupp = pygame.image.load("uppbarruer.png")
+barruerupp = pygame.image.load("assets/uppbarruer.png")
 barruerupp_rect = barruerupp.get_rect(center=(300, 0))
 
-barruerupp2 = pygame.image.load("uppbarruer2.png")
+barruerupp2 = pygame.image.load("assets/uppbarruer2.png")
 barruerupp2_rect = barruerupp2.get_rect(center=(1390, 0))
 
-barruerdown = pygame.image.load("barruerdown.png")
+barruerdown = pygame.image.load("assets/barruerdown.png")
 barruerdown_rect = barruerdown.get_rect(center=(300, 1200))
 
-barruerdown2 = pygame.image.load("barruerdown2.png")
+barruerdown2 = pygame.image.load("assets/barruerdown2.png")
 barruerdown2_rect = barruerdown2.get_rect(center=(1300, 1200))
 
-barruercopy = pygame.image.load("barruercopy.png")
+barruercopy = pygame.image.load("assets/barruercopy.png")
 barruercopy_rect = barruercopy.get_rect(center=(0, 100))
 
-barruercopy_right = pygame.image.load("barruercopy.png")
+barruercopy_right = pygame.image.load("assets/barruercopy.png")
 barruercopyright_rect = barruercopy_right.get_rect(center=(0, 900))
 
-barruercopy_right2 = pygame.image.load("barruercopy.png")
+barruercopy_right2 = pygame.image.load("assets/barruercopy.png")
 barruercopyright2_rect = barruercopy_right2.get_rect(center=(2000, 400))
 
-quit_img = pygame.image.load("quit.png")
+quit_img = pygame.image.load("assets/quit.png")
 quit_img_rect = quit_img.get_rect(center=(WIDTH / 2, playImg_rect.bottom + 50))
 
 Levels = pygame.image.load("Levels.png")
 Levels_rect = Levels.get_rect(center=(350, 130))
 
-off = pygame.image.load("off.png")
+off = pygame.image.load("assets/off.png")
 off = pygame.transform.smoothscale(off, (80, 111))
 off_rect = off.get_rect(center=(50, 130))
 
-benzin = pygame.image.load("benzin.png")
+benzin = pygame.image.load("assets/benzin.png")
 benzin = pygame.transform.smoothscale(benzin, (69, 111))
 benzin_rect = benzin.get_rect(center=(900, 630))
 
 
-lvl1 = pygame.image.load("1.png")
+lvl1 = pygame.image.load("assets/1.png")
 lvl1 = pygame.transform.smoothscale(lvl1, (69, 111))
 lvl1_rect = lvl1.get_rect(center=(100, 300))
 
-lvl3 = pygame.image.load("3.png")
+lvl3 = pygame.image.load("assets/3.png")
 lvl3 = pygame.transform.smoothscale(lvl3, (69, 111))
 lvl3_rect = lvl3.get_rect(center=(300, 300))
 
-lvl4 = pygame.image.load("4.png")
+lvl4 = pygame.image.load("assets/4.png")
 lvl4 = pygame.transform.smoothscale(lvl4, (69, 111))
 lvl4_rect = lvl4.get_rect(center=(400, 300))
 
-lvl5 = pygame.image.load("5.png")
+lvl5 = pygame.image.load("assets/5.png")
 lvl5 = pygame.transform.smoothscale(lvl5, (69, 111))
 lvl5_rect = lvl5.get_rect(center=(500, 300))
 
-lvl2 = pygame.image.load("2.png")
+lvl2 = pygame.image.load("assets/2.png")
 lvl2 = pygame.transform.smoothscale(lvl2, (69, 111))
 lvl2_rect = lvl2.get_rect(center=(200, 300))
 
-car = pygame.image.load("car2.png")
+car = pygame.image.load("assets/car2.png")
 car = pygame.transform.smoothscale(car, (150, 70))  
 car_rect = car.get_rect(center=(500,500))
 
-ShowMoney = pygame.image.load("ShowMoney.png")
+ShowMoney = pygame.image.load("assets/ShowMoney.png")
 ShowMoney_rect = ShowMoney.get_rect(center=(1500,130))
 
-quit2 = pygame.image.load("Quite2.png")
+quit2 = pygame.image.load("assets/Quite2.png")
 quit2_rect = quit2.get_rect(center=(900,600))
 
-Won = pygame.image.load("Uwon.png")
+Won = pygame.image.load("assets/Uwon.png")
 won_rect = Won.get_rect(center=(900,200))
 
-Lobby = pygame.image.load("LOBBY.png")
+Lobby = pygame.image.load("assets/LOBBY.png")
 Lobby_rect = Lobby.get_rect(center=(900,400))
 
 is_benzin_on_right = True
