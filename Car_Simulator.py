@@ -132,8 +132,8 @@ Car_Flipp = False
 running = True
 while running:
     screen.fill(orange)
-    text1 = f1.render(f'points {point}', 1, (0, 0, 0))
-    text2 = f1.render(f'Money {money}', 1, (0, 0, 0))
+    text1 = f1.render(f'Points: {point}', True, (0, 0, 0))
+    #print(f"points{point}")
     if Menu:
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
@@ -151,6 +151,38 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (400, 400))
     elif ThirdLevelScreen: 
+        screen.fill(rgb3)
+        screen.blit(car, car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (400, 400))
+        print(f"Rendering text: points {point}") 
+
+    elif FourdLevelScreen: 
+        screen.fill(rgb3)
+        screen.blit(car, car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (400, 400))
+
+
+
+
+    elif FiveftLevelScreen: 
         screen.fill(rgb3)
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
@@ -269,6 +301,10 @@ while running:
     
     if car_rect.colliderect(benzin_rect):
         point += 1
+        print(f'point{point}')
+        #print(f"COLLISION DETECTED! Point updated: {point}")
+    #else:
+        #print(f"No collision. Car: {car_rect}, Benzin: {benzin_rect}")
         
 
         if is_benzin_on_right:
@@ -285,7 +321,7 @@ while running:
         FirstLevelCompletedScreen = True
 
 
-    if Menu == False and FirstLevelScreen == False and SecondLevelScreen == False:
+    if Menu == False and FirstLevelScreen == False and SecondLevelScreen == False or ThirdLevelScreen == False or FourdLevelScreen == False or FiveftLevelScreen == False:
         point = 0
 
     if point == 10 and SecondLevelScreen == True:
@@ -296,7 +332,7 @@ while running:
     
 
 
-    if FirstLevelScreen or SecondLevelScreen or ThirdLevelScreen:
+    if FirstLevelScreen or SecondLevelScreen or ThirdLevelScreen or FourdLevelScreen or FiveftLevelScreen:
         if  keys[pygame.K_a]:
             if Car_Flipp == False:  
                 Car_Flipp = True
@@ -314,8 +350,8 @@ while running:
 
 
 
-
-
+    text2 = f1.render(f'Money {money}', 1, (0, 0, 0))
+    text1 = f1.render(f'points {point}', 1, (0, 0, 0))
     pygame.display.flip()
 
 pygame.quit()
