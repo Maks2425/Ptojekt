@@ -10,6 +10,7 @@ orange = (0, 162, 255)
 rgb = (30, 105, 185)
 rgb2 = (0, 255, 179)
 rgb3 = (30, 225, 79)
+rgb4 = (42, 52, 233)
 
 # Отримуємо розміри екрану
 # info = pygame.display.Info()
@@ -71,6 +72,10 @@ off_rect = off.get_rect(center=(50, 130))
 benzin = pygame.image.load("assets/benzin.png")
 benzin = pygame.transform.smoothscale(benzin, (69, 80))
 benzin_rect = benzin.get_rect(center=(900, 630))
+
+bg2 = pygame.image.load("assets/bg2.png")
+bg2 = pygame.transform.smoothscale(bg2, (1920, 1080))
+bg2_rect = bg2.get_rect(center=(0, 0))
 
 
 lvl1 = pygame.image.load("assets/1.png")
@@ -156,7 +161,6 @@ while running:
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
     elif FirstLevelScreen: 
-        screen.fill(rgb)
         screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
@@ -171,7 +175,6 @@ while running:
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
     elif ThirdLevelScreen: 
-        screen.fill(rgb3)
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
@@ -183,10 +186,10 @@ while running:
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (400, 400))
-        print(f"Rendering text: points {point}") 
+        
 
     elif FourdLevelScreen: 
-        screen.fill(rgb3)
+        screen.fill(rgb4)
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
@@ -219,7 +222,7 @@ while running:
 
 
     elif SecondLevelScreen:
-        screen.fill(rgb2)
+        screen.blit(bg2, bg2_rect)
         screen.blit(car,car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
