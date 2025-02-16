@@ -69,13 +69,17 @@ off = pygame.transform.smoothscale(off, (80, 111))
 off_rect = off.get_rect(center=(50, 130))
 
 benzin = pygame.image.load("assets/benzin.png")
-benzin = pygame.transform.smoothscale(benzin, (69, 111))
+benzin = pygame.transform.smoothscale(benzin, (69, 80))
 benzin_rect = benzin.get_rect(center=(900, 630))
 
 
 lvl1 = pygame.image.load("assets/1.png")
-lvl1 = pygame.transform.smoothscale(lvl1, (69, 111))
+lvl1 = pygame.transform.smoothscale(lvl1, (69, 80))
 lvl1_rect = lvl1.get_rect(center=(100, 300))
+
+
+menu_bg = pygame.image.load("assets/menu_bg.webp")
+menu_bg = pygame.transform.scale(menu_bg, (WIDTH+50, HEIGHT+100))
 
 
 Shop_button = pygame.image.load("assets/shop.png")
@@ -141,6 +145,7 @@ while running:
     text1 = f1.render(f'Points: {point}', True, (0, 0, 0))
     #print(f"points{point}")
     if Menu:
+        screen.blit(menu_bg, (0, 0))
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
     elif FirstLevelScreen: 
@@ -231,6 +236,7 @@ while running:
         screen.blit(Won,won_rect)
 
     else:
+        screen.blit(menu_bg, (0, 0))
         screen.blit(off, off_rect)
         screen.blit(lvl1, lvl1_rect)
         screen.blit(lvl2, lvl2_rect)
