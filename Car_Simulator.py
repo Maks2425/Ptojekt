@@ -38,6 +38,12 @@ playImg_rect = playImg.get_rect(center=(WIDTH / 2, HEIGHT / 2))
 barruer = pygame.image.load("assets/barruer.png")
 barruer_rect = barruer.get_rect(center=(0, 400))
 
+Upgrade_button = pygame.image.load("assets/upgrade.png")
+UpgradeButton_rect = Upgrade_button.get_rect(center=(280, 200))
+
+Gas_button = pygame.image.load("assets/Gas.png")
+Gas_rect = Gas_button.get_rect(center=(1550, 200))
+
 barruerupp = pygame.image.load("assets/uppbarruer.png")
 barruerupp_rect = barruerupp.get_rect(center=(300, 0))
 
@@ -73,9 +79,9 @@ benzin = pygame.image.load("assets/benzin.png")
 benzin = pygame.transform.smoothscale(benzin, (69, 80))
 benzin_rect = benzin.get_rect(center=(900, 630))
 
-bg2 = pygame.image.load("assets/bg2.png")
-bg2 = pygame.transform.smoothscale(bg2, (1920, 1080))
-bg2_rect = bg2.get_rect(center=(0, 0))
+#bg2 = pygame.image.load("assets/bg2.png")
+#bg2 = pygame.transform.smoothscale(bg2, (1920, 1080))
+#bg2_rect = bg2.get_rect(center=(0, 0))
 
 
 lvl1 = pygame.image.load("assets/1.png")
@@ -119,6 +125,18 @@ car_rect = car.get_rect(center=(500,500))
 ShowMoney = pygame.image.load("assets/ShowMoney.png")
 ShowMoney_rect = ShowMoney.get_rect(center=(1500,130))
 
+Backpng = pygame.image.load("assets/back.png")
+Backpng_rect = Backpng.get_rect(center=(30,1050))
+
+Dollars = pygame.image.load("assets/Dollars.png")
+Dollars_rect = Dollars.get_rect(center=(300,600))
+
+Dollars2 = pygame.image.load("assets/Dollars2.png")
+Dollars2_rect = Dollars2.get_rect(center=(700,400))
+
+Dollars3 = pygame.image.load("assets/Dollars3.png")
+Dollars3_rect = Dollars3.get_rect(center=(1000,400))
+
 quit2 = pygame.image.load("assets/Quite2.png")
 quit2_rect = quit2.get_rect(center=(900,600))
 
@@ -147,20 +165,36 @@ point = 0
 MenuMoney = False
 f1 = pygame.font.Font(None, 36)
 Car_Flipp = False
+Shop_Menu= False
+Dont_enough_Money_menu = False
+SpeedMax = False
+Gas_Left = 1500
 
-Gas_Left = 1000
 
 running = True
 while running:
     screen.fill(orange)
     text1 = f1.render(f'Points: {point}', True, (0, 0, 0))
     Gas_Left_Text = f1.render(f'Gas Left: {Gas_Left}', True, (0, 0, 0))
-    #print(f"points{point}")
+    Current_Speed = f1.render(f'Current speed: {car_speed}', True, (0, 0, 0))
+    Current_Speed_rect = Current_Speed.get_rect(center=(100, 250))
+    Money_enogh = f1.render('You dont have enough money', True, (0, 0, 0))
+    Money_enogh_rect = Money_enogh.get_rect(center=(500, 500))
+    Cost = f1.render( "Cost: 1 Money", True, (0, 0, 0))
+    Cost_rect = Cost.get_rect(center=(300, 250))
+    CantBuy = f1.render( "Max speed, you can't buy more", True, (0, 0, 0))
+    CantBuy_rect = CantBuy.get_rect(center=(250, 450))
+    Cost2 = f1.render( "Cost: 5 Money", True, (0, 0, 0))
+    Cost2_rect = Cost.get_rect(center=(1400, 260))
+    Current_Gas = f1.render( f"Current gas:{Gas_Left}", True, (0, 0, 0))
+    Current_Gas_rect = Current_Gas.get_rect(center=(1600, 260))
+    
     if Menu:
         screen.blit(menu_bg, (0, 0))
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
-    elif FirstLevelScreen: 
+    elif FirstLevelScreen:
+        
         screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
@@ -174,7 +208,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
-    elif ThirdLevelScreen: 
+    elif ThirdLevelScreen:
+        
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
@@ -185,10 +220,12 @@ while running:
         screen.blit(barruerdown,barruerdown_rect)
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
-        screen.blit(text1, (400, 400))
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
         
 
-    elif FourdLevelScreen: 
+    elif FourdLevelScreen:
+         
         screen.fill(rgb4)
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
@@ -200,12 +237,14 @@ while running:
         screen.blit(barruerdown,barruerdown_rect)
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
-        screen.blit(text1, (400, 400))
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
 
 
 
 
-    elif FiveftLevelScreen: 
+    elif FiveftLevelScreen:
+        
         screen.fill(rgb3)
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
@@ -217,12 +256,13 @@ while running:
         screen.blit(barruerdown,barruerdown_rect)
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
-        screen.blit(text1, (400, 400))
-
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
 
 
     elif SecondLevelScreen:
-        screen.blit(bg2, bg2_rect)
+        
+        screen.fill(rgb3)
         screen.blit(car,car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
@@ -233,19 +273,72 @@ while running:
         screen.blit(barruerdown,barruerdown_rect)
         screen.blit(barruerdown2,barruerdown2_rect)
         screen.blit(benzin, benzin_rect)
-        screen.blit(text1, (400, 400))
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
     elif FirstLevelCompletedScreen:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
-
+    elif Dont_enough_Money_menu:
+        screen.fill(orange)
+        screen.blit(Money_enogh, Money_enogh_rect)
+        screen.blit(Lobby, Lobby_rect)
 
     elif SecondLevelCompletedScreen:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+
+
+
+    elif ThirdLevelComletedScreen:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
+
+
+    elif FourdLevelComletedScreen:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
+
+
+    elif FiveftLevelComletedScreen:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
+    elif Dont_enough_Money_menu:
+        Dont_enough_Money_menu = True
+
+
+
+    elif Shop_Menu:
+        screen.fill(orange)
+        screen.blit(Upgrade_button, UpgradeButton_rect)
+        screen.blit(Current_Speed , Current_Speed_rect)
+        car_rect = car.get_rect(center=(100 , 100))
+        screen.blit(car , car_rect)
+        screen.blit(Backpng, Backpng_rect)
+        screen.blit(Cost , Cost_rect)
+        screen.blit(Gas_button , Gas_rect)
+        screen.blit(Cost2 , Cost2_rect)
+        screen.blit(Current_Gas , Current_Gas_rect)
+        benzin_rect = benzin.get_rect(center=(1500 , 100))
+        screen.blit(benzin , benzin_rect)
+        if car_speed == 6 :
+            SpeedMax = True
+            screen.blit(CantBuy,CantBuy_rect) 
+
+
+
+   
+
+
 
     else:
         screen.blit(menu_bg, (0, 0))
@@ -258,12 +351,16 @@ while running:
         screen.blit(Levels, Levels_rect)
         screen.blit(ShowMoney, ShowMoney_rect)
         screen.blit(Shop_button, ShopButton_rect)
+
+
+
+    
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:  # Вихід з гри при натисканні ESC
+            if event.key == pygame.K_ESCAPE:  # екстриний вихід
                 running = False
         elif event.type == pygame.MOUSEBUTTONDOWN:
             if Menu:
@@ -297,8 +394,20 @@ while running:
                     MenuMoney = True  
                     Menu = False
 
+                if money < 0 :
+                    Dont_enough_Money_menu = True
+                    car_speed = 1
+                    money = 0
+
+                
+
                 if quit2_rect.collidepoint(event.pos): 
                     running = False
+
+
+                if UpgradeButton_rect.collidepoint(event.pos): 
+                    car_speed += 1
+                    money -=1
 
                 if Lobby_rect.collidepoint(event.pos): 
                     FirstLevelScreen = False
@@ -307,29 +416,69 @@ while running:
                     Menu = False
                     MenuMoney = False
                     SecondLevelCompletedScreen = False
+                    Dont_enough_Money_menu = False
+
+
+                if Backpng_rect.collidepoint(event.pos): 
+                    FirstLevelScreen = False
+                    SecondLevelScreen = False
+                    FirstLevelCompletedScreen = False
+                    Menu = False
+                    MenuMoney = False
+                    SecondLevelCompletedScreen = False
+                    Shop_Menu = False
+
+
+                if ShopButton_rect.collidepoint(event.pos):   
+                    Menu = False
+                    Shop_Menu = True
+
+
+
+
+        
+                if Gas_rect.collidepoint(event.pos):
+                    print(f"Координати кнопки: {Gas_rect.topleft}, Розмір: {Gas_rect.size}")
+                    Gas_Left += 3000
+                    money -= 5
+                    print(f"Gas_Left: {Gas_Left}, Money: {money}") 
+    #pygame.    draw.rect(screen, (255, 0, 0), Gas_rect, 2)  # Червона рамка навколо кнопки
+
+    #for event in pygame.event.get():
+       # if event.type == pygame.MOUSEBUTTONDOWN:  # Переконуємося, що це подія миші
+            #if Gas_rect.collidepoint(event.pos):
+                
+                #Gas_Left += 3000
+                #money -= 5
+               # print(f"Gas_Left: {Gas_Left}, Money: {money}")  # Вивід для перевірки
+
+        #elif event.type == pygame.MOUSEBUTTONDOWN:
+            #if Gas_rect.collidepoint(event.pos):   
+                #Gas_Left += 3000
+                #money -= 5
+                    
 
     if MenuMoney == True:
         screen.fill(orange)
         screen.blit(text2, (400, 400))
-        screen.blit(Lobby, Lobby_rect)
+        screen.blit(Backpng, Backpng_rect)
+        screen.blit(Dollars, Dollars_rect)
+        screen.blit(Dollars2, Dollars2_rect)
+        screen.blit(Dollars3, Dollars3_rect)
 
     if barruer_box == True:
         car_rect = car.get_rect(center=(500,500))
         barruer_box = False
-        car_speed = 1
+        
 
     keys = pygame.key.get_pressed()
     if car_rect.colliderect(barruercopy_rect) or car_rect.colliderect(barruer_rect) or car_rect.colliderect(barruercopyright_rect) or car_rect.colliderect(barruercopyright2_rect) or car_rect.colliderect(barruerupp_rect) or car_rect.colliderect(barruerupp2_rect) or car_rect.colliderect(barruerdown_rect) or car_rect.colliderect(barruerdown2_rect):
-        car_speed = 0
         barruer_box = True
     
     if car_rect.colliderect(benzin_rect):
         point += 1
         Gas_Left += 1000
-        print(f'point{point}')
-        #print(f"COLLISION DETECTED! Point updated: {point}")
-    #else:
-        #print(f"No collision. Car: {car_rect}, Benzin: {benzin_rect}")
+        
         
 
         if is_benzin_on_right:
@@ -353,6 +502,32 @@ while running:
         SecondLevelCompletedScreen = True
         SecondLevelScreen = False
         money += 10
+
+
+
+    if point == 15 and ThirdLevelScreen == True:
+        ThirdLevelComletedScreen = True
+        ThirdLevelScreen = False
+        money += 20
+
+
+    if point == 20 and FourdLevelScreen == True:
+        FourdLevelComletedScreen = True
+        FourdLevelScreen = False
+        money += 25
+
+
+
+    if point == 25 and FiveftLevelScreen == True:
+        FiveftLevelComletedScreen = True
+        FiveftLevelScreen = False
+        money += 25
+
+
+
+    if event.type == pygame.MOUSEBUTTONDOWN:  
+        if SpeedMax == True and UpgradeButton_rect.collidepoint(event.pos):
+            car_speed = 6
         
     
 
