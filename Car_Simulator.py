@@ -1,5 +1,6 @@
 import pygame
 import random
+from enum import Enum
 
 pygame.init()
 
@@ -127,7 +128,7 @@ ShowMoney = pygame.image.load("assets/ShowMoney.png")
 ShowMoney_rect = ShowMoney.get_rect(center=(1500,130))
 
 Backpng = pygame.image.load("assets/back.png")
-Backpng_rect = Backpng.get_rect(center=(30,1050))
+Backpng_rect = Backpng.get_rect(center=(30, HEIGHT - 30))
 
 Dollars = pygame.image.load("assets/Dollars.png")
 Dollars_rect = Dollars.get_rect(center=(300,600))
@@ -148,28 +149,37 @@ Lobby = pygame.image.load("assets/LOBBY.png")
 Lobby_rect = Lobby.get_rect(center=(900,400))
 
 is_benzin_on_right = True
-FiveftLevelScreen = False
-FiveftLevelComletedScreen = False
-FourdLevelScreen = False
-FourdLevelComletedScreen = False
-ThirdLevelScreen = False
-ThirdLevelComletedScreen = False
 money = 0
 car_speed = 1
-SecondLevelScreen = False
-Menu = True
-FirstLevelScreen = False  
-FirstLevelCompletedScreen = False
-SecondLevelCompletedScreen = False
 barruer_box = False
 point = 0
-MenuMoney = False
 f1 = pygame.font.Font(None, 36)
 Car_Flipp = False
-Shop_Menu= False
-Dont_enough_Money_menu = False
 SpeedMax = False
 Gas_Left = 1500
+
+
+# екрани
+class Screen(Enum):
+    MENU = 1
+    LOBBY = 2
+    LEVEL1 = 3
+    LEVEL1_COMPLETED = 4
+    LEVEL2 = 5
+    LEVEL2_COMPLETED = 6
+    LEVEL3 = 7
+    LEVEL3_COMPLETED = 8
+    LEVEL4 = 9
+    LEVEL4_COMPLETED = 10
+    LEVEL5 = 11
+    LEVEL5_COMPLETED = 12
+    SHOP = 13
+    MONEY = 14
+    NOT_ENOUGH_MONEY = 15
+
+# активний екран
+current_screen = Screen.MENU
+
 
 
 running = True
@@ -190,11 +200,12 @@ while running:
     Current_Gas = f1.render( f"Current gas:{Gas_Left}", True, (0, 0, 0))
     Current_Gas_rect = Current_Gas.get_rect(center=(1600, 260))
     
-    if Menu:
+    if current_screen == Screen.MENU:
         screen.blit(menu_bg, (0, 0))
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
-    elif FirstLevelScreen:
+    
+    elif current_screen == Screen.LEVEL1:
         
         screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
@@ -209,7 +220,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
-    elif ThirdLevelScreen:
+    
+    elif current_screen == Screen.LEVEL3:
         
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
@@ -225,7 +237,7 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         
 
-    elif FourdLevelScreen:
+    elif current_screen == Screen.LEVEL4:
          
         screen.fill(rgb4)
         screen.blit(car, car_rect)
@@ -244,7 +256,7 @@ while running:
 
 
 
-    elif FiveftLevelScreen:
+    elif current_screen == Screen.LEVEL5:
         
         screen.fill(rgb3)
         screen.blit(car, car_rect)
@@ -261,7 +273,7 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
 
 
-    elif SecondLevelScreen:
+    elif current_screen == Screen.LEVEL2:
         
         screen.fill(rgb3)
         screen.blit(car,car_rect)
@@ -276,17 +288,19 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
-    elif FirstLevelCompletedScreen:
+    
+    elif current_screen == Screen.LEVEL1_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
-    elif Dont_enough_Money_menu:
+    
+    elif current_screen == Screen.NOT_ENOUGH_MONEY:
         screen.fill(orange)
         screen.blit(Money_enogh, Money_enogh_rect)
         screen.blit(Lobby, Lobby_rect)
 
-    elif SecondLevelCompletedScreen:
+    elif current_screen == Screen.LEVEL2_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
@@ -294,31 +308,32 @@ while running:
 
 
 
-    elif ThirdLevelComletedScreen:
+    elif current_screen == Screen.LEVEL3_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
 
 
-    elif FourdLevelComletedScreen:
+    elif current_screen == Screen.LEVEL4_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
 
 
-    elif FiveftLevelComletedScreen:
+    elif current_screen == Screen.LEVEL5_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
-    elif Dont_enough_Money_menu:
-        Dont_enough_Money_menu = True
+    
+    # elif Dont_enough_Money_menu:
+    #     Dont_enough_Money_menu = True
 
 
 
-    elif Shop_Menu:
+    elif current_screen == Screen.SHOP:
         screen.fill(orange)
         screen.blit(Upgrade_button, UpgradeButton_rect)
         screen.blit(Current_Speed , Current_Speed_rect)
@@ -335,13 +350,7 @@ while running:
             SpeedMax = True
             screen.blit(CantBuy,CantBuy_rect) 
 
-
-
-   
-
-
-
-    else:
+    elif current_screen == Screen.LOBBY:
         screen.blit(menu_bg, (0, 0))
         screen.blit(off, off_rect)
         screen.blit(lvl1, lvl1_rect)
@@ -358,100 +367,59 @@ while running:
     
     
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        # вихід з гри
+        if event.type == pygame.QUIT or (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE):
             running = False
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_ESCAPE:  # екстриний вихід
-                running = False
+        
+        # кліки по кнопках
         elif event.type == pygame.MOUSEBUTTONDOWN:
-            if Menu:
-                if playImg_rect.collidepoint(event.pos):
-                    Menu = False  
-                elif quit_img_rect.collidepoint(event.pos):
-                    running = False  
-            else:
-                if off_rect.collidepoint(event.pos):
-                    running = False 
-                if lvl1_rect.collidepoint(event.pos): 
-                    FirstLevelScreen = True  
-                    Menu = False  
-                if lvl2_rect.collidepoint(event.pos): 
-                    SecondLevelScreen = True  
-                    Menu = False
-                    
-                if lvl3_rect.collidepoint(event.pos): 
-                    ThirdLevelScreen = True  
-                    Menu = False
-
-                if lvl4_rect.collidepoint(event.pos): 
-                    FourdLevelScreen = True  
-                    Menu = False 
-
-                if lvl5_rect.collidepoint(event.pos): 
-                    FiveftLevelScreen = True  
-                    Menu = False      
-
-                if ShowMoney_rect.collidepoint(event.pos): 
-                    MenuMoney = True  
-                    Menu = False
-
-                if money < 0 :
-                    Dont_enough_Money_menu = True
-                    car_speed = 1
-                    money = 0
-
+            if SpeedMax == True and UpgradeButton_rect.collidepoint(event.pos):
+                car_speed = 6
                 
-
-                if quit2_rect.collidepoint(event.pos): 
-                    running = False
-
-
-                if UpgradeButton_rect.collidepoint(event.pos): 
-                    car_speed += 1
-                    money -=1
-
-                if Lobby_rect.collidepoint(event.pos): 
-                    FirstLevelScreen = False
-                    SecondLevelScreen = False
-                    FirstLevelCompletedScreen = False
-                    Menu = False
-                    MenuMoney = False
-                    SecondLevelCompletedScreen = False
-                    Dont_enough_Money_menu = False
-                    ThirdLevelComletedScreen =False
-                    ThirdLevelScreen = False
-                    FourdLevelComletedScreen =False
-                    FiveftLevelComletedScreen = False
-
-
-                if Backpng_rect.collidepoint(event.pos): 
-                    FirstLevelScreen = False
-                    SecondLevelScreen = False
-                    FirstLevelCompletedScreen = False
-                    Menu = False
-                    MenuMoney = False
-                    SecondLevelCompletedScreen = False
-                    Shop_Menu = False
-
-
-                if ShopButton_rect.collidepoint(event.pos):   
-                    Menu = False
-                    Shop_Menu = True
-
-
-
-        elif event.type == pygame.MOUSEBUTTONDOWN:
             if Gas_rect.collidepoint(event.pos):
                 if money >= 5:  
                     Gas_Left += 3000
                     money -= 5
-                   
+            if playImg_rect.collidepoint(event.pos):
+                current_screen = Screen.LOBBY
+            if quit_img_rect.collidepoint(event.pos) or off_rect.collidepoint(event.pos) or quit2_rect.collidepoint(event.pos):
+                running = False
+            if lvl1_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL1
+            if lvl2_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL2
+            if lvl3_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL3
+            if lvl4_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL4
+            if lvl5_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL5
+
+            if ShowMoney_rect.collidepoint(event.pos): 
+                current_screen = Screen.MONEY
+
+            if money < 0 :
+                current_screen = Screen.NOT_ENOUGH_MONEY
+                car_speed = 1
+                money = 0
+
+            if UpgradeButton_rect.collidepoint(event.pos): 
+                car_speed += 1
+                money -=1
+
+            if Lobby_rect.collidepoint(event.pos): 
+                current_screen = Screen.LOBBY
 
 
+            if Backpng_rect.collidepoint(event.pos): 
+                current_screen = Screen.LOBBY
+            
 
+            if ShopButton_rect.collidepoint(event.pos):   
+                current_screen = Screen.SHOP
                     
 
-    if MenuMoney == True:
+    if current_screen == Screen.MONEY:
         screen.fill(orange)
         screen.blit(text2, (400, 400))
         screen.blit(Backpng, Backpng_rect)
@@ -465,14 +433,14 @@ while running:
         
 
     keys = pygame.key.get_pressed()
+    # перевірка на зіткнення з бар'єрами
     if car_rect.colliderect(barruercopy_rect) or car_rect.colliderect(barruer_rect) or car_rect.colliderect(barruercopyright_rect) or car_rect.colliderect(barruercopyright2_rect) or car_rect.colliderect(barruerupp_rect) or car_rect.colliderect(barruerupp2_rect) or car_rect.colliderect(barruerdown_rect) or car_rect.colliderect(barruerdown2_rect):
         barruer_box = True
     
+    # перевірка на зіткнення з бензином
     if car_rect.colliderect(benzin_rect):
         point += 1
         Gas_Left += 1000
-        
-        
 
         if is_benzin_on_right:
             benzin_rect = benzin.get_rect(center=(random.randint(100, int(WIDTH / 2) - 100), random.randint(100, HEIGHT - 100)))
@@ -482,69 +450,53 @@ while running:
             is_benzin_on_right = True
 
 
-    if point == 5 and FirstLevelScreen == True:
+    # перехід на наступний рівень 
+    if point == 5 and current_screen == Screen.LEVEL1:
         money += 5
-        FirstLevelScreen = False
-        FirstLevelCompletedScreen = True
+        current_screen = Screen.LEVEL1_COMPLETED
 
 
-    if Menu == False and FirstLevelScreen == False and SecondLevelScreen == False and ThirdLevelScreen == False and FourdLevelScreen == False and FiveftLevelScreen == False:
-        point = 0
+    # if Menu == False and FirstLevelScreen == False and SecondLevelScreen == False and ThirdLevelScreen == False and FourdLevelScreen == False and FiveftLevelScreen == False:
+    #     point = 0
 
-    if point == 10 and SecondLevelScreen == True:
-        SecondLevelCompletedScreen = True
-        SecondLevelScreen = False
+    if point == 10 and current_screen == Screen.LEVEL2:
         money += 10
+        current_screen = Screen.LEVEL2_COMPLETED
 
-
-
-    if point == 15 and ThirdLevelScreen == True:
-        ThirdLevelComletedScreen = True
-        ThirdLevelScreen = False
+    if point == 15 and current_screen == Screen.LEVEL3:
         money += 20
+        current_screen = Screen.LEVEL3_COMPLETED
 
-
-    if point == 20 and FourdLevelScreen == True:
-        FourdLevelComletedScreen = True
-        FourdLevelScreen = False
+    if point == 20 and current_screen == Screen.LEVEL4:
         money += 25
+        current_screen = Screen.LEVEL4_COMPLETED
 
-
-
-    if point == 25 and FiveftLevelScreen == True:
-        FiveftLevelComletedScreen = True
-        FiveftLevelScreen = False
+    if point == 25 and current_screen == Screen.LEVEL5:
         money += 25
+        current_screen = Screen.LEVEL5_COMPLETED
+ 
 
+    # рух машини
+    if keys[pygame.K_a] or keys[pygame.K_LEFT]:
+        if Car_Flipp == False:  
+            Car_Flipp = True
+            car = pygame.transform.flip(car, True, False)
+        car_rect.x -= car_speed
+        Gas_Left -= 1
+    if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
+        if Car_Flipp == True:  
+            Car_Flipp = False
+            car = pygame.transform.flip(car, True, False)
+        car_rect.x += car_speed
+        Gas_Left -= 1
+    if keys[pygame.K_w] or keys[pygame.K_UP]:  
+        car_rect.y -= car_speed
+        Gas_Left -= 1
+    if keys[pygame.K_s] or keys[pygame.K_DOWN]:  
+        car_rect.y += car_speed
+        Gas_Left -= 1
 
-
-    if event.type == pygame.MOUSEBUTTONDOWN:  
-        if SpeedMax == True and UpgradeButton_rect.collidepoint(event.pos):
-            car_speed = 6
-        
-    
-
-
-    if FirstLevelScreen or SecondLevelScreen or ThirdLevelScreen or FourdLevelScreen or FiveftLevelScreen:
-        if  keys[pygame.K_a]:
-            if Car_Flipp == False:  
-                Car_Flipp = True
-                car = pygame.transform.flip(car, True, False)
-            car_rect.x -= car_speed
-            Gas_Left -= 1
-        if  keys[pygame.K_d]:
-            if Car_Flipp == True:  
-                Car_Flipp = False
-                car = pygame.transform.flip(car, True, False)
-            car_rect.x += car_speed
-            Gas_Left -= 1
-        if  keys[pygame.K_w]:  
-            car_rect.y -= car_speed
-            Gas_Left -= 1
-        if  keys[pygame.K_s]:  
-            car_rect.y += car_speed
-            Gas_Left -= 1
-
+    # перевірка на вичерпання газу
     if Gas_Left <= 0:
         Gas_Left = 0
         car_speed = 0
