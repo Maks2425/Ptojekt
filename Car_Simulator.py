@@ -44,7 +44,7 @@ Upgrade_button = pygame.image.load("assets/upgrade.png")
 UpgradeButton_rect = Upgrade_button.get_rect(center=(280, 200))
 
 Gas_button = pygame.image.load("assets/Gas.png")
-Gas_rect = Gas_button.get_rect(center=(1550, 200))
+Gas_rect = Gas_button.get_rect(center=(WIDTH - 100, 200))
 
 barruerupp = pygame.image.load("assets/uppbarruer.png")
 barruerupp_rect = barruerupp.get_rect(center=(300, 0))
@@ -196,9 +196,9 @@ while running:
     CantBuy = f1.render( "Max speed, you can't buy more", True, (0, 0, 0))
     CantBuy_rect = CantBuy.get_rect(center=(250, 450))
     Cost2 = f1.render( "Cost: 5 Money", True, (0, 0, 0))
-    Cost2_rect = Cost.get_rect(center=(1400, 260))
+    Cost2_rect = Cost.get_rect(center=(WIDTH - 300, 260))
     Current_Gas = f1.render( f"Current gas:{Gas_Left}", True, (0, 0, 0))
-    Current_Gas_rect = Current_Gas.get_rect(center=(1600, 260))
+    Current_Gas_rect = Current_Gas.get_rect(center=(WIDTH - 100, 260))
     
     if current_screen == Screen.MENU:
         screen.blit(menu_bg, (0, 0))
@@ -327,10 +327,6 @@ while running:
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
-    
-    # elif Dont_enough_Money_menu:
-    #     Dont_enough_Money_menu = True
-
 
 
     elif current_screen == Screen.SHOP:
