@@ -4,6 +4,7 @@ import random
 pygame.init()
 
 
+
 blue = (102, 102, 255)
 white = (255, 255, 255)
 orange = (0, 162, 255)
@@ -417,6 +418,10 @@ while running:
                     MenuMoney = False
                     SecondLevelCompletedScreen = False
                     Dont_enough_Money_menu = False
+                    ThirdLevelComletedScreen =False
+                    ThirdLevelScreen = False
+                    FourdLevelComletedScreen =False
+                    FiveftLevelComletedScreen = False
 
 
                 if Backpng_rect.collidepoint(event.pos): 
@@ -435,27 +440,15 @@ while running:
 
 
 
-
-        
-                if Gas_rect.collidepoint(event.pos):
-                    print(f"Координати кнопки: {Gas_rect.topleft}, Розмір: {Gas_rect.size}")
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if Gas_rect.collidepoint(event.pos):
+                if money >= 5:  
                     Gas_Left += 3000
                     money -= 5
-                    print(f"Gas_Left: {Gas_Left}, Money: {money}") 
-    #pygame.    draw.rect(screen, (255, 0, 0), Gas_rect, 2)  # Червона рамка навколо кнопки
+                   
 
-    #for event in pygame.event.get():
-       # if event.type == pygame.MOUSEBUTTONDOWN:  # Переконуємося, що це подія миші
-            #if Gas_rect.collidepoint(event.pos):
-                
-                #Gas_Left += 3000
-                #money -= 5
-               # print(f"Gas_Left: {Gas_Left}, Money: {money}")  # Вивід для перевірки
 
-        #elif event.type == pygame.MOUSEBUTTONDOWN:
-            #if Gas_rect.collidepoint(event.pos):   
-                #Gas_Left += 3000
-                #money -= 5
+
                     
 
     if MenuMoney == True:
