@@ -260,8 +260,7 @@ while running:
     Current_Gas_rect = Current_Gas.get_rect(center=(1600, 260))
     Health_Bar_text = f1.render( f"Helth:{Health_Bar}", True, (0, 0, 0))
     Health_bar_rect = Health_Bar_text.get_rect(center=(1600, 260))
-    cost3 = f1.render( "Cost 30 money", True, (0, 0, 0))
-    cost3_rect = cost3.get_rect(center=(1600, 260))
+    Uwon = f1.render( "YOU WON GAME!!!", True, (0, 0, 0))
 
     
     if current_screen == Screen.MENU:
@@ -273,7 +272,7 @@ while running:
 
 
     if current_screen == Screen.YOU_WIN:
-        screen.blit(UWIn,UWIn_rect)
+        screen.blit(Uwon, (800 ,500))
         screen.blit(quit_img , quit_img_rect)
           
     
