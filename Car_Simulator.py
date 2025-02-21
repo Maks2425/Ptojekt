@@ -87,7 +87,7 @@ benzin_rect = benzin.get_rect(center=(900, 630))
 
 
 lvl1 = pygame.image.load("assets/1.png")
-lvl1 = pygame.transform.smoothscale(lvl1, (69, 80))
+lvl1 = pygame.transform.smoothscale(lvl1, (69, 111))
 lvl1_rect = lvl1.get_rect(center=(100, 300))
 
 
@@ -120,6 +120,21 @@ lvl2 = pygame.image.load("assets/2.png")
 lvl2 = pygame.transform.smoothscale(lvl2, (69, 111))
 lvl2_rect = lvl2.get_rect(center=(200, 300))
 
+lvl6 = pygame.image.load("assets/6.png")
+lvl6_rect = lvl6.get_rect(center=(600, 300))
+
+lvl7 = pygame.image.load("assets/7.png")
+lvl7_rect = lvl7.get_rect(center=(700, 300))
+
+lvl8 = pygame.image.load("assets/8.png")
+lvl8_rect = lvl8.get_rect(center=(800, 300))
+
+lvl9 = pygame.image.load("assets/9.png")
+lvl9_rect = lvl9.get_rect(center=(900, 300))
+
+lvl10 = pygame.image.load("assets/10.png")
+lvl10_rect = lvl10.get_rect(center=(1000, 300))
+
 car = pygame.image.load("assets/car2.png")
 car = pygame.transform.smoothscale(car, (150, 70))  
 car_rect = car.get_rect(center=(500,500))
@@ -148,6 +163,10 @@ won_rect = Won.get_rect(center=(900,200))
 Lobby = pygame.image.load("assets/LOBBY.png")
 Lobby_rect = Lobby.get_rect(center=(900,400))
 
+rock = pygame.image.load("assets/rock.png")
+rock = pygame.transform.smoothscale(rock, (100, 111))
+rock_rect = rock.get_rect(center=(200, 300))
+
 is_benzin_on_right = True
 money = 0
 car_speed = 1
@@ -157,6 +176,7 @@ f1 = pygame.font.Font(None, 36)
 Car_Flipp = False
 SpeedMax = False
 Gas_Left = 1500
+Health_Bar = 100
 
 
 # екрани
@@ -173,11 +193,20 @@ class Screen(Enum):
     LEVEL4_COMPLETED = 10
     LEVEL5 = 11
     LEVEL5_COMPLETED = 12
-    SHOP = 13
-    MONEY = 14
-    NOT_ENOUGH_MONEY = 15
+    LEVEL6 = 13
+    LEVEL6_COMPLETED = 14
+    LEVEL7 = 15
+    LEVEL7_COMPLETED = 16
+    LEVEL8 = 17
+    LEVEL8_COMPLETED = 18
+    LEVEL9 = 19
+    LEVEL9_COMPLETED = 20
+    LEVEL10 = 21
+    LEVEL10_COMPLETED = 22
+    SHOP = 23
+    MONEY = 24
+    NOT_ENOUGH_MONEY = 25
 
-# активний екран
 current_screen = Screen.MENU
 
 
@@ -199,6 +228,8 @@ while running:
     Cost2_rect = Cost.get_rect(center=(1400, 260))
     Current_Gas = f1.render( f"Current gas:{Gas_Left}", True, (0, 0, 0))
     Current_Gas_rect = Current_Gas.get_rect(center=(1600, 260))
+    Health_Bar_text = f1.render( f"Helth:{Health_Bar}", True, (0, 0, 0))
+    Health_bar_rect = Health_Bar_text.get_rect(center=(1600, 260))
     
     if current_screen == Screen.MENU:
         screen.blit(menu_bg, (0, 0))
@@ -220,9 +251,11 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text, (50 ,200))
     
     elif current_screen == Screen.LEVEL3:
-        
+        screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
@@ -239,7 +272,7 @@ while running:
 
     elif current_screen == Screen.LEVEL4:
          
-        screen.fill(rgb4)
+        screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
@@ -258,7 +291,7 @@ while running:
 
     elif current_screen == Screen.LEVEL5:
         
-        screen.fill(rgb3)
+        screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
@@ -275,8 +308,100 @@ while running:
 
     elif current_screen == Screen.LEVEL2:
         
-        screen.fill(rgb3)
+        screen.blit(level1_bg, (0, 0))
         screen.blit(car,car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
+
+
+    elif current_screen == Screen.LEVEL5:
+        screen.blit(level1_bg, (0, 0))
+        screen.blit(car, car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
+
+    elif current_screen == Screen.LEVEL6:
+        screen.blit(level1_bg, (0, 0))
+        screen.blit(car, car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
+
+    elif current_screen == Screen.LEVEL7:
+        screen.blit(level1_bg, (0, 0))
+        screen.blit(car, car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
+
+    elif current_screen == Screen.LEVEL8:
+        screen.blit(level1_bg, (0, 0))
+        screen.blit(car, car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
+
+
+    elif current_screen == Screen.LEVEL9:
+        screen.blit(level1_bg, (0, 0))
+        screen.blit(car, car_rect)
+        screen.blit(barruer,barruer_rect)
+        screen.blit(barruercopy,barruercopy_rect)
+        screen.blit(barruercopy_right,barruercopyright_rect)
+        screen.blit(barruercopy_right2,barruercopyright2_rect)
+        screen.blit(barruerupp,barruerupp_rect)
+        screen.blit(barruerupp2,barruerupp2_rect)
+        screen.blit(barruerdown,barruerdown_rect)
+        screen.blit(barruerdown2,barruerdown2_rect)
+        screen.blit(benzin, benzin_rect)
+        screen.blit(text1, (50, 50))
+        screen.blit(Gas_Left_Text, (50, 120))
+
+    elif current_screen == Screen.LEVEL10:
+        screen.blit(level1_bg, (0, 0))
+        screen.blit(car, car_rect)
         screen.blit(barruer,barruer_rect)
         screen.blit(barruercopy,barruercopy_rect)
         screen.blit(barruercopy_right,barruercopyright_rect)
@@ -327,6 +452,37 @@ while running:
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+
+    elif current_screen == Screen.LEVEL6_COMPLETED:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
+
+    elif current_screen == Screen.LEVEL7_COMPLETED:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
+
+    elif current_screen == Screen.LEVEL8_COMPLETED:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
+
+    elif current_screen == Screen.LEVEL9_COMPLETED:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
+
+
+    elif current_screen == Screen.LEVEL10_COMPLETED:
+        screen.fill(orange)
+        screen.blit(quit2,quit2_rect)
+        screen.blit(Lobby,Lobby_rect)
+        screen.blit(Won,won_rect)
     
     # elif Dont_enough_Money_menu:
     #     Dont_enough_Money_menu = True
@@ -346,7 +502,8 @@ while running:
         screen.blit(Current_Gas , Current_Gas_rect)
         benzin_rect = benzin.get_rect(center=(1500 , 100))
         screen.blit(benzin , benzin_rect)
-        if car_speed == 6 :
+        screen.blit(text2, (400, 400))
+        if car_speed == 7 :
             SpeedMax = True
             screen.blit(CantBuy,CantBuy_rect) 
 
@@ -358,9 +515,15 @@ while running:
         screen.blit(lvl3, lvl3_rect)
         screen.blit(lvl4, lvl4_rect)
         screen.blit(lvl5, lvl5_rect)
+        screen.blit(lvl6, lvl6_rect)
+        screen.blit(lvl7, lvl7_rect)
+        screen.blit(lvl8, lvl8_rect)
+        screen.blit(lvl9, lvl9_rect)
+        screen.blit(lvl10, lvl10_rect)
         screen.blit(Levels, Levels_rect)
         screen.blit(ShowMoney, ShowMoney_rect)
         screen.blit(Shop_button, ShopButton_rect)
+        point = 0
 
 
 
@@ -395,10 +558,26 @@ while running:
             if lvl5_rect.collidepoint(event.pos): 
                 current_screen = Screen.LEVEL5
 
+            if lvl6_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL6
+
+
+            if lvl7_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL7
+
+            if lvl8_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL8
+
+            if lvl9_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL9
+
+            if lvl10_rect.collidepoint(event.pos): 
+                current_screen = Screen.LEVEL10
+
             if ShowMoney_rect.collidepoint(event.pos): 
                 current_screen = Screen.MONEY
 
-            if money < 0 :
+            if money == -1 :
                 current_screen = Screen.NOT_ENOUGH_MONEY
                 car_speed = 1
                 money = 0
@@ -436,6 +615,11 @@ while running:
     # перевірка на зіткнення з бар'єрами
     if car_rect.colliderect(barruercopy_rect) or car_rect.colliderect(barruer_rect) or car_rect.colliderect(barruercopyright_rect) or car_rect.colliderect(barruercopyright2_rect) or car_rect.colliderect(barruerupp_rect) or car_rect.colliderect(barruerupp2_rect) or car_rect.colliderect(barruerdown_rect) or car_rect.colliderect(barruerdown2_rect):
         barruer_box = True
+
+
+    if car_rect.colliderect(rock_rect):
+        Health_Bar -= 10
+        rock_rect = rock.get_rect(center=(random.randint(0,1000) , random.randint(0,1000)))
     
     # перевірка на зіткнення з бензином
     if car_rect.colliderect(benzin_rect):
@@ -456,8 +640,7 @@ while running:
         current_screen = Screen.LEVEL1_COMPLETED
 
 
-    # if Menu == False and FirstLevelScreen == False and SecondLevelScreen == False and ThirdLevelScreen == False and FourdLevelScreen == False and FiveftLevelScreen == False:
-    #     point = 0
+
 
     if point == 10 and current_screen == Screen.LEVEL2:
         money += 10
@@ -474,6 +657,31 @@ while running:
     if point == 25 and current_screen == Screen.LEVEL5:
         money += 25
         current_screen = Screen.LEVEL5_COMPLETED
+
+    if point == 30 and current_screen == Screen.LEVEL6:
+        money += 35
+        current_screen = Screen.LEVEL6_COMPLETED
+
+    if point == 35 and current_screen == Screen.LEVEL7:
+        money += 45
+        current_screen = Screen.LEVEL7_COMPLETED
+
+
+    if point == 50 and current_screen == Screen.LEVEL8:
+        money += 70
+        current_screen = Screen.LEVEL8_COMPLETED
+
+    if point == 100 and current_screen == Screen.LEVEL9:
+        money += 150
+        current_screen = Screen.LEVEL9_COMPLETED
+
+    if point == 150 and current_screen == Screen.LEVEL10:
+        money += 300
+        current_screen = Screen.LEVEL10_COMPLETED
+
+
+
+    
  
 
     # рух машини
