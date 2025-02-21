@@ -44,7 +44,7 @@ Upgrade_button = pygame.image.load("assets/upgrade.png")
 UpgradeButton_rect = Upgrade_button.get_rect(center=(280, 200))
 
 Gas_button = pygame.image.load("assets/Gas.png")
-Gas_rect = Gas_button.get_rect(center=(1550, 200))
+Gas_rect = Gas_button.get_rect(center=(WIDTH - 100, 200))
 
 barruerupp = pygame.image.load("assets/uppbarruer.png")
 barruerupp_rect = barruerupp.get_rect(center=(300, 0))
@@ -206,6 +206,7 @@ class Screen(Enum):
     SHOP = 23
     MONEY = 24
     NOT_ENOUGH_MONEY = 25
+    YOU_LOSE = 26
 
 current_screen = Screen.MENU
 
@@ -252,7 +253,7 @@ while running:
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
-        screen.blit(Health_Bar_text, (50 ,200))
+        screen.blit(Health_Bar_text , (50 , 150))
     
     elif current_screen == Screen.LEVEL3:
         screen.blit(level1_bg, (0, 0))
@@ -268,6 +269,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
         
 
     elif current_screen == Screen.LEVEL4:
@@ -285,6 +288,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
 
 
 
@@ -304,6 +309,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
 
 
     elif current_screen == Screen.LEVEL2:
@@ -321,6 +328,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
 
 
     elif current_screen == Screen.LEVEL5:
@@ -337,6 +346,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
 
     elif current_screen == Screen.LEVEL6:
         screen.blit(level1_bg, (0, 0))
@@ -352,7 +363,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
-
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
     elif current_screen == Screen.LEVEL7:
         screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
@@ -367,6 +379,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
 
     elif current_screen == Screen.LEVEL8:
         screen.blit(level1_bg, (0, 0))
@@ -382,6 +396,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
 
 
     elif current_screen == Screen.LEVEL9:
@@ -398,6 +414,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
 
     elif current_screen == Screen.LEVEL10:
         screen.blit(level1_bg, (0, 0))
@@ -413,6 +431,8 @@ while running:
         screen.blit(benzin, benzin_rect)
         screen.blit(text1, (50, 50))
         screen.blit(Gas_Left_Text, (50, 120))
+        screen.blit(rock, rock_rect )
+        screen.blit(Health_Bar_text , (50 , 150))
     
     elif current_screen == Screen.LEVEL1_COMPLETED:
         screen.fill(orange)
@@ -523,6 +543,7 @@ while running:
         screen.blit(Levels, Levels_rect)
         screen.blit(ShowMoney, ShowMoney_rect)
         screen.blit(Shop_button, ShopButton_rect)
+        Health_Bar = 100
         point = 0
 
 
@@ -609,6 +630,13 @@ while running:
     if barruer_box == True:
         car_rect = car.get_rect(center=(500,500))
         barruer_box = False
+
+
+
+    if Health_Bar == 0 or Health_Bar < 0 :
+        current_screen = Screen.YOU_LOSE
+        Health_Bar = 100
+
         
 
     keys = pygame.key.get_pressed()
