@@ -239,7 +239,7 @@ class Screen(Enum):
 
 current_screen = Screen.MENU
 
-Done_Game = 10
+Done_Game = 0
 
 running = True
 while running:
