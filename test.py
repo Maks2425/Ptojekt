@@ -231,6 +231,8 @@ while running:
     Current_Gas_rect = Current_Gas.get_rect(center=(1600, 260))
     Health_Bar_text = f1.render( f"Helth:{Health_Bar}", True, (0, 0, 0))
     Health_bar_rect = Health_Bar_text.get_rect(center=(1600, 260))
+    ULose = f1.render( 'You lose!!!', True, (0, 0, 0))
+    ULose_rect = ULose.get_rect(center=(1600, 260))
     
     if current_screen == Screen.MENU:
         screen.blit(menu_bg, (0, 0))

@@ -81,6 +81,9 @@ benzin = pygame.image.load("assets/benzin.png")
 benzin = pygame.transform.smoothscale(benzin, (69, 80))
 benzin_rect = benzin.get_rect(center=(900, 630))
 
+Buy_Button = pygame.image.load('assets/Buy.png')
+BuyButton_rect = Buy_Button.get_rect(center=(100,630))
+
 #bg2 = pygame.image.load("assets/bg2.png")
 #bg2 = pygame.transform.smoothscale(bg2, (1920, 1080))
 #bg2_rect = bg2.get_rect(center=(0, 0))
@@ -139,6 +142,10 @@ car = pygame.image.load("assets/car2.png")
 car = pygame.transform.smoothscale(car, (150, 70))  
 car_rect = car.get_rect(center=(500,500))
 
+#carSkin1 = pygame.image.load("assets/carSkin.png")
+#carSkin1 = pygame.transform.smoothscale(carSkin1, (200, 300))  
+#carsSkin1_rect = carSkin1.get_rect(center=(100,500))
+
 ShowMoney = pygame.image.load("assets/ShowMoney.png")
 ShowMoney_rect = ShowMoney.get_rect(center=(1500,130))
 
@@ -166,6 +173,27 @@ Lobby_rect = Lobby.get_rect(center=(900,400))
 rock = pygame.image.load("assets/rock.png")
 rock = pygame.transform.smoothscale(rock, (100, 111))
 rock_rect = rock.get_rect(center=(200, 300))
+
+rock2 = pygame.image.load("assets/rock2.png")
+rock2 = pygame.transform.smoothscale(rock2, (200, 211))
+rock2_rect = rock2.get_rect(center=(500, 300))
+
+rockOK = pygame.image.load("assets/RockOk.png")
+rockOK = pygame.transform.smoothscale(rockOK, (300, 311))
+rockOK_rect = rockOK.get_rect(center=(900, 300))
+
+rockBOSS = pygame.image.load("assets/RockBoss.png")
+rockBOSS = pygame.transform.smoothscale(rockBOSS, (300, 311))
+rockBOSS_rect = rockBOSS.get_rect(center=(1000, 300))
+
+heart = pygame.image.load("assets/heart.png")
+heart_rect = heart.get_rect(center=(250,600))
+
+Ulose = pygame.image.load("assets/Ulose.png")
+Ulose_rect = Ulose.get_rect(center=(1000,200))
+
+UWIn = pygame.image.load("assets/UWin.png")
+UWIn_rect = UWIn.get_rect(center=(1000 , 200))
 
 is_benzin_on_right = True
 money = 0
@@ -207,10 +235,11 @@ class Screen(Enum):
     MONEY = 24
     NOT_ENOUGH_MONEY = 25
     YOU_LOSE = 26
+    YOU_WIN = 27
 
 current_screen = Screen.MENU
 
-
+Done_Game = 10
 
 running = True
 while running:
@@ -231,11 +260,22 @@ while running:
     Current_Gas_rect = Current_Gas.get_rect(center=(1600, 260))
     Health_Bar_text = f1.render( f"Helth:{Health_Bar}", True, (0, 0, 0))
     Health_bar_rect = Health_Bar_text.get_rect(center=(1600, 260))
+    cost3 = f1.render( "Cost 30 money", True, (0, 0, 0))
+    cost3_rect = cost3.get_rect(center=(1600, 260))
+
     
     if current_screen == Screen.MENU:
         screen.blit(menu_bg, (0, 0))
         screen.blit(playImg, playImg_rect)
         screen.blit(quit_img, quit_img_rect)
+
+
+
+
+    if current_screen == Screen.YOU_WIN:
+        screen.blit(UWIn,UWIn_rect)
+        screen.blit(quit_img , quit_img_rect)
+          
     
     elif current_screen == Screen.LEVEL1:
         
@@ -254,6 +294,10 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
+        screen.blit(rock2, rock2_rect )
+        screen.blit(rockOK, rockOK_rect )
+        screen.blit(rockBOSS, rockBOSS_rect)
+        screen.blit(heart , heart_rect)
     
     elif current_screen == Screen.LEVEL3:
         screen.blit(level1_bg, (0, 0))
@@ -271,6 +315,12 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
+        screen.blit(rock, rock_rect )
+        screen.blit(heart , heart_rect)
+        screen.blit(rock2, rock2_rect )
+        screen.blit(rockOK, rockOK_rect )
+        screen.blit(rockBOSS, rockBOSS_rect)
+     
         
 
     elif current_screen == Screen.LEVEL4:
@@ -290,7 +340,9 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
-
+        screen.blit(rock, rock_rect )
+        screen.blit(rock2, rock2_rect )
+        screen.blit(heart , heart_rect)
 
 
 
@@ -311,7 +363,9 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
-
+        screen.blit(rock, rock_rect )
+        screen.blit(rock2, rock2_rect )
+        screen.blit(heart , heart_rect)
 
     elif current_screen == Screen.LEVEL2:
         
@@ -330,24 +384,12 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
+        screen.blit(rock2, rock2_rect )
+        screen.blit(rockOK, rockOK_rect )
+        screen.blit(rockBOSS, rockBOSS_rect)
+        screen.blit(heart , heart_rect)
 
 
-    elif current_screen == Screen.LEVEL5:
-        screen.blit(level1_bg, (0, 0))
-        screen.blit(car, car_rect)
-        screen.blit(barruer,barruer_rect)
-        screen.blit(barruercopy,barruercopy_rect)
-        screen.blit(barruercopy_right,barruercopyright_rect)
-        screen.blit(barruercopy_right2,barruercopyright2_rect)
-        screen.blit(barruerupp,barruerupp_rect)
-        screen.blit(barruerupp2,barruerupp2_rect)
-        screen.blit(barruerdown,barruerdown_rect)
-        screen.blit(barruerdown2,barruerdown2_rect)
-        screen.blit(benzin, benzin_rect)
-        screen.blit(text1, (50, 50))
-        screen.blit(Gas_Left_Text, (50, 120))
-        screen.blit(rock, rock_rect )
-        screen.blit(Health_Bar_text , (50 , 150))
 
     elif current_screen == Screen.LEVEL6:
         screen.blit(level1_bg, (0, 0))
@@ -365,6 +407,11 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
+        screen.blit(rock, rock_rect )
+        screen.blit(rock2, rock2_rect )
+        screen.blit(rockOK, rockOK_rect )
+        screen.blit(heart , heart_rect)
+       
     elif current_screen == Screen.LEVEL7:
         screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
@@ -381,6 +428,11 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
+        screen.blit(rock, rock_rect )
+        screen.blit(rock2, rock2_rect )
+        screen.blit(rockOK, rockOK_rect )
+        screen.blit(heart , heart_rect)
+        
 
     elif current_screen == Screen.LEVEL8:
         screen.blit(level1_bg, (0, 0))
@@ -398,6 +450,10 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
+        screen.blit(rock, rock_rect )
+        screen.blit(rock2, rock2_rect )
+        screen.blit(rockOK, rockOK_rect )
+        screen.blit(heart , heart_rect)
 
 
     elif current_screen == Screen.LEVEL9:
@@ -416,7 +472,11 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
-
+        screen.blit(rock, rock_rect )
+        screen.blit(rock2, rock2_rect )
+        screen.blit(rockOK, rockOK_rect )
+        screen.blit(rockBOSS, rockBOSS_rect)
+        screen.blit(heart , heart_rect)
     elif current_screen == Screen.LEVEL10:
         screen.blit(level1_bg, (0, 0))
         screen.blit(car, car_rect)
@@ -433,12 +493,18 @@ while running:
         screen.blit(Gas_Left_Text, (50, 120))
         screen.blit(rock, rock_rect )
         screen.blit(Health_Bar_text , (50 , 150))
-    
+        screen.blit(rock, rock_rect )
+        screen.blit(rock2, rock2_rect )
+        screen.blit(rockOK, rockOK_rect )
+        screen.blit(rockBOSS, rockBOSS_rect)
+        screen.blit(heart , heart_rect)
     elif current_screen == Screen.LEVEL1_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+        Done_Game += 1
+
     
     elif current_screen == Screen.NOT_ENOUGH_MONEY:
         screen.fill(orange)
@@ -450,6 +516,7 @@ while running:
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+        Done_Game += 1
 
 
 
@@ -458,13 +525,14 @@ while running:
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
-
+        Done_Game += 1
 
     elif current_screen == Screen.LEVEL4_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+        Done_Game += 1
 
 
     elif current_screen == Screen.LEVEL5_COMPLETED:
@@ -472,30 +540,34 @@ while running:
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
-
+        Done_Game += 1
     elif current_screen == Screen.LEVEL6_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+        Done_Game += 1
 
     elif current_screen == Screen.LEVEL7_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+        Done_Game += 1
 
     elif current_screen == Screen.LEVEL8_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+        Done_Game += 1
 
     elif current_screen == Screen.LEVEL9_COMPLETED:
         screen.fill(orange)
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+        Done_Game += 1
 
 
     elif current_screen == Screen.LEVEL10_COMPLETED:
@@ -503,11 +575,17 @@ while running:
         screen.blit(quit2,quit2_rect)
         screen.blit(Lobby,Lobby_rect)
         screen.blit(Won,won_rect)
+        Done_Game += 1
     
     # elif Dont_enough_Money_menu:
     #     Dont_enough_Money_menu = True
 
-
+    elif current_screen == Screen.YOU_LOSE:
+        screen.blit(Ulose, Ulose_rect)
+        screen.blit(Lobby , Lobby_rect)
+        screen.blit(quit_img, quit_img_rect)
+        Gas_Left = 1500
+        car_speed = 1
 
     elif current_screen == Screen.SHOP:
         screen.fill(orange)
@@ -522,10 +600,14 @@ while running:
         screen.blit(Current_Gas , Current_Gas_rect)
         benzin_rect = benzin.get_rect(center=(1500 , 100))
         screen.blit(benzin , benzin_rect)
-        screen.blit(text2, (400, 400))
+        screen.blit(text2, (0, 0))
         if car_speed == 7 :
             SpeedMax = True
             screen.blit(CantBuy,CantBuy_rect) 
+
+        #screen.blit(carSkin1, carsSkin1_rect)
+        #screen.blit(Buy_Button,BuyButton_rect)
+        #screen.blit(cost3, (0, 700))
 
     elif current_screen == Screen.LOBBY:
         screen.blit(menu_bg, (0, 0))
@@ -543,7 +625,6 @@ while running:
         screen.blit(Levels, Levels_rect)
         screen.blit(ShowMoney, ShowMoney_rect)
         screen.blit(Shop_button, ShopButton_rect)
-        Health_Bar = 100
         point = 0
 
 
@@ -630,6 +711,9 @@ while running:
     if barruer_box == True:
         car_rect = car.get_rect(center=(500,500))
         barruer_box = False
+    if Done_Game == 10:
+        current_screen =Screen.YOU_WIN
+        
 
 
 
@@ -648,7 +732,26 @@ while running:
     if car_rect.colliderect(rock_rect):
         Health_Bar -= 10
         rock_rect = rock.get_rect(center=(random.randint(0,1000) , random.randint(0,1000)))
+
+    if car_rect.colliderect(rock2_rect):
+        Health_Bar -= 15
+        rock2_rect = rock2.get_rect(center=(random.randint(0,1000) , random.randint(0,1000)))
+
+    if car_rect.colliderect(rockOK_rect):
+        Health_Bar -= 25
+        rockOK_rect = rockOK.get_rect(center=(random.randint(0,1000) , random.randint(0,1000)))
+
+    if car_rect.colliderect(rockBOSS_rect):
+        Health_Bar -= 50
+        rockBOSS_rect = rockBOSS.get_rect(center=(random.randint(0,1000) , random.randint(0,1000)))
     
+    if car_rect.colliderect(heart_rect):
+        Health_Bar += 20
+        heart_rect = heart.get_rect(center=(random.randint(0,1000) , random.randint(0,1000)))
+    
+    if Gas_Left == 0 or Gas_Left  < 0 :
+        current_screen = Screen.YOU_LOSE
+
     # перевірка на зіткнення з бензином
     if car_rect.colliderect(benzin_rect):
         point += 1
